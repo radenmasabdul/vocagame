@@ -1,11 +1,13 @@
 import AlertComponents from "@/components/common/Alert";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <AlertComponents />
-      {children}
+      <TooltipProvider>
+        <AlertComponents />
+        {children}
+      </TooltipProvider>
     </>
   );
 }
-

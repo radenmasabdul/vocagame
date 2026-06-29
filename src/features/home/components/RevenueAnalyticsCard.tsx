@@ -153,7 +153,7 @@ export default function RevenueAnalyticsCard() {
   }, [currentData, previousData, compare, days]);
 
   return (
-    <div className="bg-[#111614] border border-[#1e2b1e] rounded-2xl p-6 w-full shadow-2xl">
+    <div className="bg-[#201F22] border border-[#1e2b1e] rounded-2xl p-6 w-full shadow-2xl">
       <div className="flex items-start justify-between mb-6 flex-wrap gap-3">
         <div>
           <h2 className="text-xl md:text-2xl font-medium text-[#E5E1E4]">

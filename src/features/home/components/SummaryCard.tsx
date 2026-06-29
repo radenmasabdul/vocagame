@@ -1,8 +1,8 @@
-import { useHomepage } from "../hooks/useHomepage";
+import { useSummaryData } from "../hooks/useSummaryData";
 import { StatCard, StatCardSkeleton } from "./StatCard";
 
-export function SummaryCards() {
-  const { cards, isLoading } = useHomepage();
+export default function SummaryCards() {
+  const { cards, isLoading } = useSummaryData();
 
   if (isLoading) {
     return (

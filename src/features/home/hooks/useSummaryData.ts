@@ -104,7 +104,7 @@ function mapToCards(data: SummaryResponse): StatCardData[] {
   ];
 }
 
-export function useHomepage() {
+export function useSummaryData() {
   const { data, isLoading } = useGetSummary();
 
   return {

@@ -1,7 +1,7 @@
 import { TrendingUp, TrendingDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { type StatCardData } from "../types/summary.type";
-import { MiniBarChart } from "./MiniBarChart";
+import { MiniBarChart } from "./MinibarChart";
 
 export function StatCardSkeleton() {
   return (

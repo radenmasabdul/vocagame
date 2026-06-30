@@ -4,6 +4,6 @@ import { apiClient } from "@/lib/api-client";
 export function useGetTransaction(){
   return useQuery({
     queryKey: ["transaction"],
-    queryFn: () => apiClient("/transaction"),
+    queryFn: () => apiClient("/transactions"),
   })
 }

@@ -1,27 +1,8 @@
-import {
-  Chart,
-  BarController,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-} from "chart.js";
 import { MoreHorizontal } from "lucide-react";
-import { useGetProductPerformance } from "../services/home.service";
-
-Chart.register(BarController, BarElement, CategoryScale, LinearScale);
-
-const fmt = (v: number) => (v >= 1000 ? `$${(v / 1000).toFixed(1)}k` : `$${v}`);
-
-type Product = {
-  name: string;
-  revenue: number;
-};
+import { formatRevenue, useProductPerformance } from "../hooks/useProductPerformance";
 
 export default function ProductPerformance() {
-  const { data, isLoading } = useGetProductPerformance();
-  const products: Product[] = (data as Product[]) ?? [];
-
-  const max = Math.max(...products.map((p) => p.revenue));
+  const { isLoading, products, maxRevenue } = useProductPerformance();
 
   return (
     <div className="bg-[#201F22] border border-[#2a2a3e] rounded-2xl p-6 flex flex-col gap-5">
@@ -52,13 +33,17 @@ export default function ProductPerformance() {
                   {p.name}
                 </span>
                 <span className="text-xs md:text-sm font-medium text-[#E5E1E4]">
-                  {fmt(p.revenue)}
+                  {formatRevenue(p.revenue)}
                 </span>
               </div>
               <div className="w-full h-2 bg-[#2a2a3e] rounded-full overflow-hidden">
                 <div
                   className="h-full rounded-full bg-[#39ff14] transition-all duration-500"
-                  style={{ width: `${(p.revenue / max) * 100}%` }}
+                  style={{
+                    width: `${
+                      maxRevenue ? (p.revenue / maxRevenue) * 100 : 0
+                    }%`,
+                  }}
                 />
               </div>
             </div>

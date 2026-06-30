@@ -1,74 +1,8 @@
-import { useEffect, useMemo, useRef } from "react";
-import { ArcElement, Chart, DoughnutController, Tooltip } from "chart.js";
 import { SlidersHorizontal } from "lucide-react";
-import { useGetPaymentDistribution } from "../services/home.service";
-
-Chart.register(DoughnutController, ArcElement, Tooltip);
-
-const COLORS = ["#a78bfa", "#4ade80", "#f0abfc", "#6b7280"];
-
-interface PaymentItem {
-  method: string;
-  percentage: number;
-}
+import { COLORS, usePaymentDistribution } from "../hooks/usePaymentDistribution";
 
 export default function PaymentDistribution() {
-  const { data, isLoading } = useGetPaymentDistribution();
-  const payments = useMemo<PaymentItem[]>(
-    () => (data as PaymentItem[]) ?? [],
-    [data],
-  );
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const chartRef = useRef<Chart | null>(null);
-
-  const topMethod =
-    payments.length > 0
-      ? payments.reduce(
-          (top, p) => (p.percentage > top.percentage ? p : top),
-          payments[0],
-        )
-      : null;
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas || payments.length === 0) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const existing = Chart.getChart(canvas);
-    if (existing) existing.destroy();
-    chartRef.current = null;
-
-    chartRef.current = new Chart(ctx, {
-      type: "doughnut",
-      data: {
-        labels: payments.map((p) => p.method),
-        datasets: [
-          {
-            data: payments.map((p) => p.percentage),
-            backgroundColor: COLORS,
-            borderWidth: 3,
-            borderColor: "#1a1a2e",
-            hoverOffset: 4,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: "72%",
-        plugins: {
-          tooltip: { enabled: false },
-          legend: { display: false },
-        },
-      },
-    });
-
-    return () => {
-      chartRef.current?.destroy();
-      chartRef.current = null;
-    };
-  }, [payments]);
+  const { isLoading, payments, topMethod, canvasRef } = usePaymentDistribution();
 
   return (
     <div className="bg-[#201F22] border border-[#2a2a3e] rounded-2xl p-6 flex flex-col gap-6">

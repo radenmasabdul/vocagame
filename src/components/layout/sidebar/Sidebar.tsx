@@ -24,7 +24,7 @@ function SidebarHeader({ onClose }: SidebarHeaderProps) {
     <div className="flex items-center justify-between px-6 pt-6">
       <div>
         <h1 className="text-base md:text-lg lg:text-xl font-bold text-[#16CA2E]">
-          Vocagame Test
+          Vocagame
         </h1>
         <p className="mt-1 text-xs md:text-sm lg:text-base text-[#C7C4D7]">
           Real time dashboard
